@@ -1,0 +1,19 @@
+{
+  "name": "poc-backend-node-mongdb",
+  "version": "1.0.0",
+  "description": "proof of concept backend NodeJs, Express and MongoDb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitoriasaturnino/poc-backend-node-mongodb.git"
+  },
+  "author": "Vitória Moura",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitoriasaturnino/poc-backend-node-mongodb/issues"
+  },
+  "homepage": "https://github.com/vitoriasaturnino/poc-backend-node-mongodb#readme"
+}
