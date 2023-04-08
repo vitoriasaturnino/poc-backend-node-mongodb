@@ -2,9 +2,10 @@
   "name": "poc-backend-node-mongdb",
   "version": "1.0.0",
   "description": "proof of concept backend NodeJs, Express and MongoDb",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/vitoriasaturnino/poc-backend-node-mongodb/issues"
   },
-  "homepage": "https://github.com/vitoriasaturnino/poc-backend-node-mongodb#readme"
+  "homepage": "https://github.com/vitoriasaturnino/poc-backend-node-mongodb#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sucrase": "^3.31.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
