@@ -1,8 +1,15 @@
-import allUsers from '../services/userService';
+import { allUsers, create } from '../services/userService';
 
 const getAll = async (req, res) => {
   const users = await allUsers();
   return res.status(200).json(users);
 };
 
-export default getAll;
+const newUser = async (req, res) => {
+  const { email, senha } = req.body;
+
+  const user = await create({ email, senha });
+  return res.status(200).json(user);
+};
+
+export { getAll, newUser };
