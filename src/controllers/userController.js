@@ -2,7 +2,15 @@ import { allUsers, create } from '../services/userService';
 
 const getAll = async (req, res) => {
   const users = await allUsers();
-  return res.status(200).json(users);
+
+  const id = '_id';
+
+  const newUsersList = users.map((user) => ({
+    email: user.email,
+    _id: user[`${id}`],
+  }));
+
+  return res.status(200).json(newUsersList);
 };
 
 const newUser = async (req, res) => {
