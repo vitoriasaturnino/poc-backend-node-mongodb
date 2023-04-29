@@ -1,4 +1,4 @@
-import { v4 as newUuid } from 'uuid';
+import { ObjectId } from 'mongodb';
 import connection from './mongoConection';
 
 const getAll = async () => {
@@ -8,16 +8,16 @@ const getAll = async () => {
 
 const createUser = async ({ email, senha }) => {
   const db = await connection();
-  const uuid = newUuid();
-  await db.collection('users').insertOne({ email, senha, uuid });
-  return { email, uuid };
+  const user = await db.collection('users').insertOne({ email, senha });
+  const { insertedID: id } = user;
+  return { email, _id: id };
 };
 
-const userExists = async ({ email, uuid }) => {
+const userExists = async ({ email, id }) => {
   const db = await connection();
   let user = null;
-  if (uuid) {
-    user = await db.collection('users').findOne({ uuid });
+  if (id) {
+    user = await db.collection('users').findOne({ _id: ObjectId(id) });
   } else {
     user = await db.collection('users').findOne({ email });
   }
