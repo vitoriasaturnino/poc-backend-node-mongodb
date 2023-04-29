@@ -1,4 +1,11 @@
-import { getAll, createUser, userExists, deletUser } from '../models/userModel';
+/* eslint-disable object-curly-newline */
+import {
+  getAll,
+  createUser,
+  userExists,
+  deletUser,
+  updateUser,
+} from '../models/userModel';
 
 const allUsers = async () => {
   const users = await getAll();
@@ -23,4 +30,13 @@ const destroyUser = async ({ id }) => {
   return user;
 };
 
-export { allUsers, create, destroyUser };
+const toUpdateUser = async ({ id, email, senha }) => {
+  const existingUser = await userExists({ id });
+
+  if (!existingUser) return { message: 'User not found' };
+
+  const user = await updateUser({ id, email, senha });
+  return user;
+};
+
+export { allUsers, create, destroyUser, toUpdateUser };

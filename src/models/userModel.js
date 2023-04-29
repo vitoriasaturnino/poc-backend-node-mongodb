@@ -31,4 +31,12 @@ const deletUser = async ({ id }) => {
   return { id };
 };
 
-export { getAll, createUser, userExists, deletUser };
+const updateUser = async ({ id, email, senha }) => {
+  const db = await connection();
+  await db
+    .collection('users')
+    .updateOne({ _id: new ObjectId(id) }, { $set: { email, senha } });
+  return { id, email };
+};
+
+export { getAll, createUser, userExists, deletUser, updateUser };

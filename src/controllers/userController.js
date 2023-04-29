@@ -1,4 +1,10 @@
-import { allUsers, create, destroyUser } from '../services/userService';
+/* eslint-disable object-curly-newline */
+import {
+  allUsers,
+  create,
+  destroyUser,
+  toUpdateUser,
+} from '../services/userService';
 
 const getAll = async (req, res) => {
   const users = await allUsers();
@@ -26,4 +32,11 @@ const deleteUser = async (req, res) => {
   return res.status(200).json(user);
 };
 
-export { getAll, newUser, deleteUser };
+const updateUser = async (req, res) => {
+  const { email, senha } = req.body;
+  const { id } = req.params;
+  const { email: mail, _id } = await toUpdateUser({ id, email, senha });
+  return res.status(200).json({ mail, _id });
+};
+
+export { getAll, newUser, deleteUser, updateUser };
