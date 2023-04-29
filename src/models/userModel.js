@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import { ObjectId } from 'mongodb';
 import connection from './mongoConection';
 
@@ -17,11 +18,17 @@ const userExists = async ({ email, id }) => {
   const db = await connection();
   let user = null;
   if (id) {
-    user = await db.collection('users').findOne({ _id: ObjectId(id) });
+    user = await db.collection('users').findOne({ _id: new ObjectId(id) });
   } else {
     user = await db.collection('users').findOne({ email });
   }
   return user;
 };
 
-export { getAll, createUser, userExists };
+const deletUser = async ({ id }) => {
+  const db = await connection();
+  await db.collection('users').deleteOne({ _id: new ObjectId(id) });
+  return { id };
+};
+
+export { getAll, createUser, userExists, deletUser };

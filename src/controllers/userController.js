@@ -1,4 +1,4 @@
-import { allUsers, create } from '../services/userService';
+import { allUsers, create, destroyUser } from '../services/userService';
 
 const getAll = async (req, res) => {
   const users = await allUsers();
@@ -20,4 +20,10 @@ const newUser = async (req, res) => {
   return res.status(200).json({ mail, _id });
 };
 
-export { getAll, newUser };
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  const user = await destroyUser({ id });
+  return res.status(200).json(user);
+};
+
+export { getAll, newUser, deleteUser };
