@@ -1,6 +1,9 @@
 /* eslint-disable object-curly-newline */
 import { ObjectId } from 'mongodb';
+import jwt from 'jsonwebtoken';
 import connection from './mongoConection';
+
+const SECRET = 'bvewuhviewjvop';
 
 const getAll = async () => {
   const db = await connection();
@@ -39,4 +42,32 @@ const updateUser = async ({ id, email, senha }) => {
   return { id, email };
 };
 
-export { getAll, createUser, userExists, deletUser, updateUser };
+const login = async ({ email, senha }) => {
+  const db = await connection();
+  const user = await db.collection('users').findOne({ email, senha });
+  return user;
+};
+
+const requestLogin = async (req, res) => {
+  const { email, senha } = req.body;
+  const user = await login ({ email, senha });
+
+  if (!user) return res.status(401).json({ message: 'User not found' });
+
+  const { _id } = user;
+
+  const newToken =jwt.sign(
+    {
+      userId: _id,
+      email,
+    },
+    SECRET,
+    {
+      expiresIn: 1440, // one day
+    },
+  );
+
+  return res.status(201).json({ token: newToken });
+};
+
+export { getAll, createUser, userExists, deletUser, updateUser, requestLogin };
